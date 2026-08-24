@@ -93,7 +93,7 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onOpenProjec
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={() => onOpenProjectInquiry(sol.problemTitle)}
-                    className="px-5 py-2.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-mono text-xs font-bold transition-all flex items-center gap-2"
+                    className="px-5 py-2.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-cyan-950 text-xs font-semibold transition-all flex items-center gap-2"
                   >
                     <span>{sol.ctaText}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

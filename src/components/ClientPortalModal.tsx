@@ -137,7 +137,8 @@ Status: APPROVED & DEPLOYED TO STAGING
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white"
+            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+            aria-label="Close portal"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,9 +155,9 @@ Status: APPROVED & DEPLOYED TO STAGING
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono transition-all whitespace-nowrap ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'bg-cyan-500 text-slate-950 font-bold'
+                  ? 'bg-cyan-500 text-cyan-950 font-bold'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -326,7 +327,7 @@ Status: APPROVED & DEPLOYED TO STAGING
               />
               <button
                 type="submit"
-                className="px-5 py-3 rounded-xl font-bold text-xs text-slate-950 bg-cyan-400 hover:bg-cyan-300 flex items-center gap-1.5 shrink-0"
+                className="px-5 py-3 rounded-xl font-bold text-xs text-cyan-950 bg-cyan-400 hover:bg-cyan-300 flex items-center gap-1.5 shrink-0"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Send</span>

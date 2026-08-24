@@ -121,7 +121,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
 
           <button
             onClick={onOpenProjectInquiry}
-            className="px-6 py-3.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-mono font-bold transition-all shrink-0 flex items-center gap-2"
+            className="px-6 py-3.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-cyan-950 text-xs font-semibold transition-all shrink-0 flex items-center gap-2"
           >
             <span>Book Scope Discovery</span>
             <ArrowRight className="w-4 h-4" />

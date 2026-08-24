@@ -56,9 +56,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Company Brand Identity */}
-          <div
+          <button
             onClick={() => onNavigate('home')}
-            className="flex items-center gap-2.5 cursor-pointer group"
+            className="flex items-center gap-2.5 cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg p-1 text-left"
+            aria-label="Devlogic Systems Home"
           >
             <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center text-cyan-400 font-mono shadow-sm group-hover:bg-slate-800 transition-colors">
               <Terminal className="w-4 h-4" />
@@ -72,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 SYSTEMS
               </span>
             </div>
-          </div>
+          </button>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1 rounded-lg border border-slate-200/80">

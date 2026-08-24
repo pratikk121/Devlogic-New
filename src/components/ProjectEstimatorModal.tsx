@@ -134,6 +134,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
   };
 
   const handleApplyToInquiry = () => {
+    if (selectedOptions.length === 0) return;
     const summary = `Estimate Summary: $${totalCostMin.toLocaleString()} - $${totalCostMax.toLocaleString()} (${totalHours} hrs). Modules: ${selectedOptions.map((o) => o.name).join(', ')}`;
     onProceedToInquiry(summary);
     onClose();
@@ -213,8 +214,10 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                     <button
                       key={opt.id}
                       type="button"
+                      role="checkbox"
+                      aria-checked={isChecked}
                       onClick={() => toggleOption(opt.id)}
-                      className={`p-3 rounded-xl text-left border transition-all ${
+                      className={`p-3 rounded-xl text-left border transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
                         isChecked
                           ? 'bg-slate-800 border-cyan-500/80 text-white'
                           : 'bg-slate-950 border-slate-800/80 text-slate-400 hover:border-slate-700'
@@ -222,7 +225,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-semibold text-xs text-slate-200 flex items-center gap-2">
-                          <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[9px] font-bold ${isChecked ? 'bg-cyan-400 text-slate-950' : 'bg-slate-800 text-slate-500'}`}>
+                          <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[9px] font-bold ${isChecked ? 'bg-cyan-400 text-cyan-950' : 'bg-slate-800 text-slate-500'}`}>
                             {isChecked ? '✓' : '+'}
                           </span>
                           {opt.name}
@@ -301,7 +304,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
             <div className="pt-6 border-t border-slate-800 space-y-3 mt-6">
               <button
                 onClick={handleApplyToInquiry}
-                className="w-full py-3.5 rounded-xl font-bold text-xs text-slate-950 bg-gradient-to-r from-cyan-400 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-lg flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl font-bold text-xs text-cyan-950 bg-gradient-to-r from-cyan-400 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-lg flex items-center justify-center gap-2"
               >
                 <span>Proceed To Project Inquiry</span>
                 <ArrowRight className="w-4 h-4" />

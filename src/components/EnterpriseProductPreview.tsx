@@ -33,6 +33,13 @@ export const EnterpriseProductPreview: React.FC<EnterpriseProductPreviewProps> =
   const [searchQuery, setSearchQuery] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const tabs = [
+    { id: 'telemetry', label: 'Live Telemetry', icon: Activity },
+    { id: 'drivers', label: 'Drivers Logs', icon: Truck },
+    { id: 'routes', label: 'Route Optimization', icon: MapPin },
+    { id: 'health', label: 'System Health', icon: Server }
+  ] as const;
+
   // Fleet Telemetry Data
   const fleetData = [
     { id: 'TRK-901', driver: 'Marcus Vance', location: 'Austin, TX (I-35 North)', speed: '62 mph', status: 'ACTIVE', fuel: '84%', temp: '68°F', eta: '14:30 CST' },
@@ -96,7 +103,7 @@ export const EnterpriseProductPreview: React.FC<EnterpriseProductPreviewProps> =
 
           <button
             onClick={onOpenProjectInquiry}
-            className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] transition-colors flex items-center gap-1"
+            className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-cyan-950 font-bold text-[11px] transition-colors flex items-center gap-1"
           >
             <span>Request Demo Build</span>
             <ArrowUpRight className="w-3 h-3" />
@@ -107,53 +114,44 @@ export const EnterpriseProductPreview: React.FC<EnterpriseProductPreviewProps> =
       {/* Navigation & Controls Bar */}
       <div className="bg-slate-900/80 px-4 sm:px-6 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 font-mono text-xs">
-          {[
-            { id: 'telemetry', label: 'Fleet Telemetry', icon: Truck },
-            { id: 'drivers', label: 'Driver Logs', icon: Clock },
-            { id: 'routes', label: 'Route Efficiency', icon: BarChart3 },
-            { id: 'health', label: 'Cluster Health', icon: Activity }
-          ].map((tab) => {
-            const IconComp = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-2 text-xs font-medium ${
-                  isActive
-                    ? 'bg-slate-800 text-cyan-300 border border-cyan-500/30 shadow-xs'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                }`}
-              >
-                <IconComp className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-1 text-xs">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-slate-800 text-white border border-slate-700'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent'
+              }`}
+            >
+              <tab.icon className={`w-3.5 h-3.5 ${activeTab === tab.id ? 'text-cyan-400' : ''}`} />
+              <span>{tab.label}</span>
+            </button>
+          ))}
         </div>
 
-        {/* Filter & Search Bar */}
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <div className="relative flex-1 sm:w-48">
-            <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+        {/* Global Search and Filter */}
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="w-3 h-3 text-slate-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Filter fleet..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-3 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-3 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
             />
           </div>
 
-          <div className="flex items-center gap-1 font-mono text-xs bg-slate-950 border border-slate-800 rounded-lg p-1">
+          <div className="flex items-center gap-1 text-xs bg-slate-950 border border-slate-800 rounded-lg p-1">
             {(['ALL', 'ACTIVE', 'IDLE', 'MAINTENANCE'] as const).map((st) => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
                 className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                   statusFilter === st
-                    ? 'bg-cyan-500 text-slate-950'
+                    ? 'bg-cyan-500 text-cyan-950'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >

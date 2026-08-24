@@ -34,10 +34,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenProjectI
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-slate-700 font-mono text-xs mb-3 shadow-2xs">
-            <Terminal className="w-3.5 h-3.5 text-cyan-600" />
-            <span>WHAT WE BUILD // ENGINEERING CAPABILITIES</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
             Digital Systems Built to Fit Your Operations.
           </h2>
@@ -61,7 +57,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenProjectI
                     <div className="w-12 h-12 rounded-xl bg-slate-900 text-cyan-400 flex items-center justify-center shadow-xs">
                       <IconComp className="w-6 h-6" />
                     </div>
-                    <span className="font-mono text-[11px] font-bold px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                    <span className="text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200">
                       {service.category.toUpperCase()}
                     </span>
                   </div>
@@ -76,7 +72,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenProjectI
 
                   {/* Core Deliverables List */}
                   <div className="space-y-2.5 mb-6 pt-4 border-t border-slate-100">
-                    <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                    <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-2">
                       KEY DELIVERABLES:
                     </span>
                     {service.deliverables.map((item, idx) => (
@@ -92,7 +88,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenProjectI
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-4">
                   <div className="flex flex-wrap gap-1 max-w-[70%]">
                     {service.techStack.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600 border border-slate-200">
+                      <span key={i} className="px-2 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600 border border-slate-200 font-medium">
                         {tech}
                       </span>
                     ))}
@@ -124,7 +120,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenProjectI
 
           <button
             onClick={() => onOpenProjectInquiry('Custom System Engineering')}
-            className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-mono font-bold transition-all shrink-0 flex items-center gap-2"
+            className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-all shrink-0 flex items-center gap-2"
           >
             <span>Request Custom Scope Review</span>
             <ArrowRight className="w-4 h-4 text-cyan-400" />

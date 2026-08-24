@@ -37,9 +37,9 @@ export const TechStackSection: React.FC = () => {
             <button
               key={cat.name}
               onClick={() => setSelectedCategoryIndex(idx)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                 selectedCategoryIndex === idx
-                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                  ? 'bg-cyan-500 text-cyan-950 shadow-lg shadow-cyan-500/20'
                   : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
               }`}
             >

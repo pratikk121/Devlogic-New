@@ -458,9 +458,9 @@ ${filteredLogs.map((l) => `[${l.time}] [${l.level}] ${l.msg}`).join('\n')}
                 <button
                   onClick={handleRunWorkflow}
                   disabled={isWfRunning}
-                  className="px-8 py-3 rounded-xl font-bold text-xs text-slate-950 bg-indigo-400 hover:bg-indigo-300 shadow-lg flex items-center gap-2"
+                  className="px-8 py-3 rounded-xl font-bold text-xs text-indigo-950 bg-indigo-400 hover:bg-indigo-300 shadow-lg flex items-center gap-2"
                 >
-                  <Play className={`w-4 h-4 fill-slate-950 ${isWfRunning ? 'animate-spin' : ''}`} />
+                  <Play className={`w-4 h-4 fill-indigo-950 ${isWfRunning ? 'animate-spin' : ''}`} />
                   <span>{isWfRunning ? 'EXECUTING WORKFLOW...' : 'TEST PIPELINE EXECUTION'}</span>
                 </button>
               </div>
@@ -558,12 +558,16 @@ ${filteredLogs.map((l) => `[${l.time}] [${l.level}] ${l.msg}`).join('\n')}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500"
                 />
 
-                <div className="flex items-center gap-1.5 font-mono text-xs shrink-0">
+                <div className="flex items-center gap-1.5 text-xs shrink-0">
                   {['ALL', 'ERROR', 'WARN', 'INFO'].map((lvl) => (
                     <button
                       key={lvl}
                       onClick={() => setLogFilter(lvl as any)}
-                      className={`px-3 py-1.5 rounded-lg border ${logFilter === lvl ? 'bg-cyan-500 text-slate-950 font-bold border-cyan-400' : 'bg-slate-950 text-slate-400 border-slate-800'}`}
+                      className={`px-3 py-1.5 rounded-lg border ${
+                        logFilter === lvl
+                          ? 'bg-cyan-500 text-cyan-950 font-bold border-cyan-400'
+                          : 'bg-slate-950 text-slate-400 border-slate-800'
+                      }`}
                     >
                       {lvl}
                     </button>

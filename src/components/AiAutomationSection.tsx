@@ -17,6 +17,7 @@ export const AiAutomationSection: React.FC = () => {
   const [activeWorkflow, setActiveWorkflow] = useState<'invoice' | 'lead' | 'support'>('invoice');
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [simulationResult, setSimulationResult] = useState<string | null>(null);
+  const [simulationLogs, setSimulationLogs] = useState<string[]>([]);
 
   const workflows = {
     invoice: {
@@ -50,9 +51,20 @@ export const AiAutomationSection: React.FC = () => {
   const handleRunSimulation = () => {
     setIsProcessing(true);
     setSimulationResult(null);
+    setSimulationLogs([]);
+    
+    setTimeout(() => {
+      setSimulationLogs(prev => [...prev, `[AI] Document intelligence parsing completed for ${activeWorkflow}.`]);
+    }, 400);
+    
+    setTimeout(() => {
+      setSimulationLogs(prev => [...prev, "[DECISION] Decision routing and rules validation passed."]);
+    }, 800);
+
     setTimeout(() => {
       setIsProcessing(false);
       setSimulationResult(currentWf.result);
+      setSimulationLogs(prev => [...prev, "[SUCCESS] Task execution completed, target system updated."]);
     }, 1200);
   };
 
@@ -115,10 +127,11 @@ export const AiAutomationSection: React.FC = () => {
                   onClick={() => {
                     setActiveWorkflow(wf.id as any);
                     setSimulationResult(null);
+                    setSimulationLogs([]);
                   }}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     activeWorkflow === wf.id
-                      ? 'bg-purple-500 text-slate-950 font-bold'
+                      ? 'bg-cyan-500 text-cyan-950 font-bold'
                       : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
                   }`}
                 >
@@ -152,45 +165,42 @@ export const AiAutomationSection: React.FC = () => {
                 </span>
                 <p className="text-slate-200">{currentWf.decisionStep}</p>
               </div>
+            </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <span className="font-mono text-[10px] text-emerald-400 uppercase font-bold block mb-1">
-                  Step 4: Automated Action Trigger
-                </span>
-                <p className="text-slate-200">{currentWf.actionStep}</p>
+            <div className="space-y-4 text-xs">
+              <div className="flex-grow flex flex-col justify-between">
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-xs text-slate-300 min-h-[140px]">
+                  <span className="text-slate-500 text-[10px] uppercase font-bold block mb-3">
+                    // ACTIVE AGENT TASK EXECUTION LOG:
+                  </span>
+                  <div className="space-y-1.5">
+                    <div>[SYSTEM] Ingestion node ready.</div>
+                    <div>[ROUTING] Active workflow set: <span className="text-cyan-400 font-bold">{currentWf.title}</span></div>
+                    {simulationLogs.map((log, i) => (
+                      <div key={i} className="text-emerald-400">{log}</div>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleRunSimulation}
+                  disabled={isProcessing}
+                  className="w-full mt-4 sm:w-auto px-6 py-2.5 rounded-xl text-xs font-bold text-cyan-950 bg-cyan-500 hover:bg-cyan-400 shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2"
+                >
+                  {isProcessing ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>EXECUTING WORKER PIPELINE...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3.5 h-3.5 fill-cyan-950" />
+                      <span>EXECUTE WORKFLOW SIMULATION</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* Test Trigger Button */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-800/80">
-            <div className="text-xs font-mono text-slate-400">
-              {simulationResult ? (
-                <span className="text-emerald-400 font-bold flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4" /> {simulationResult}
-                </span>
-              ) : (
-                <span>Test run this automation worker live in your browser:</span>
-              )}
-            </div>
-
-            <button
-              onClick={handleRunSimulation}
-              disabled={isProcessing}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-purple-400 to-cyan-300 hover:from-purple-300 hover:to-cyan-200 shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2"
-            >
-              {isProcessing ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  <span>EXECUTING WORKER PIPELINE...</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-3.5 h-3.5 fill-slate-950" />
-                  <span>EXECUTE WORKFLOW SIMULATION</span>
-                </>
-              )}
-            </button>
           </div>
         </div>
       </div>

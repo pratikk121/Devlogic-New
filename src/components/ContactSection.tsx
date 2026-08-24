@@ -144,7 +144,7 @@ https://devlogicsystems.com
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <button
                 onClick={handleDownloadInquiryRecord}
-                className="px-6 py-3 rounded-xl font-mono text-xs font-bold text-slate-950 bg-cyan-400 hover:bg-cyan-300 flex items-center gap-2"
+                className="px-6 py-3 rounded-xl text-xs font-semibold text-cyan-950 bg-cyan-400 hover:bg-cyan-300 flex items-center gap-2"
               >
                 <Download className="w-4 h-4" />
                 <span>Download Scope Record (.md)</span>
@@ -179,7 +179,7 @@ https://devlogicsystems.com
               </span>
               <div className="space-y-3 font-mono text-xs text-slate-300">
                 <div className="flex items-center gap-3 p-2.5 rounded bg-slate-900 border border-slate-800">
-                  <span className="w-5 h-5 rounded-full bg-cyan-500 text-slate-950 font-bold flex items-center justify-center text-[10px]">
+                  <span className="w-5 h-5 rounded-full bg-cyan-500 text-cyan-950 font-bold flex items-center justify-center text-[10px]">
                     1
                   </span>
                   <span>Scope Review by Lead Architect (Within 24 Hours)</span>
@@ -217,9 +217,9 @@ https://devlogicsystems.com
                       type="button"
                       key={type}
                       onClick={() => handleToggleProjectType(type)}
-                      className={`px-3.5 py-2 rounded-xl text-xs font-mono transition-all ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${
                         isChecked
-                          ? 'bg-cyan-500 text-slate-950 font-bold shadow-md'
+                          ? 'bg-cyan-500 text-cyan-950 font-bold shadow-md'
                           : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
                       }`}
                     >
@@ -339,7 +339,7 @@ https://devlogicsystems.com
 
             {/* Submit Button */}
             <div className="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+              <div className="flex items-center gap-2 text-xs text-slate-400">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>Zero spam guarantee. Full NDA protected.</span>
               </div>
@@ -347,11 +347,11 @@ https://devlogicsystems.com
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-cyan-300 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-xl flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold text-cyan-950 bg-gradient-to-r from-cyan-400 via-cyan-300 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-xl flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-cyan-950" />
                     <span>LOGGING INQUIRY...</span>
                   </>
                 ) : (
