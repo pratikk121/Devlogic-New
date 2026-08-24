@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MOCK_CLIENT_PORTAL_PROJECT } from '../data/companyData';
 import { 
   Lock, 
@@ -30,6 +30,50 @@ interface Message {
 
 export const ClientPortalModal: React.FC<ClientPortalModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const first = focusable[0] as HTMLElement;
+        const last = focusable[focusable.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    if (modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        (focusable[0] as HTMLElement).focus();
+      }
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const [activeTab, setActiveTab] = useState<'overview' | 'deliverables' | 'sprints' | 'support'>('overview');
   const [completionPercent, setCompletionPercent] = useState<number>(MOCK_CLIENT_PORTAL_PROJECT.completionPercent);
@@ -113,7 +157,7 @@ Status: APPROVED & DEPLOYED TO STAGING
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <div ref={modalRef} className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-slate-800">
           <div className="flex items-center gap-3">

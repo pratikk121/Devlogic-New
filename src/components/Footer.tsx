@@ -102,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({
 
             <button
               onClick={onOpenProjectInquiry}
-              className="w-full py-2.5 rounded-lg font-bold text-xs text-cyan-950 bg-cyan-400 hover:bg-cyan-300 shadow-sm"
+              className="w-full py-2.5 rounded-lg font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors"
             >
               Start a Project
             </button>

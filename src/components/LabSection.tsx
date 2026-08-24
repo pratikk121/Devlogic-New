@@ -240,17 +240,17 @@ ${filteredLogs.map((l) => `[${l.time}] [${l.level}] ${l.msg}`).join('\n')}
   };
 
   return (
-    <section className="py-16 md:py-24 bg-slate-50 relative text-slate-900 border-b border-slate-200">
+    <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-950 relative text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-slate-700 font-mono text-xs mb-3 shadow-2xs">
-            <FlaskConical className="w-3.5 h-3.5 text-cyan-600" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs mb-3 shadow-2xs">
+            <FlaskConical className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>DEVLOGIC LAB // INTERACTIVE UTILITIES</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Try Our Working System Prototypes.
           </h2>
-          <p className="text-slate-600 text-base mt-2">
+          <p className="text-slate-600 dark:text-slate-300 text-base mt-2">
             Test live client-side engineering tools developed by Devlogic architects—fully functional in your browser.
           </p>
         </div>
@@ -265,31 +265,31 @@ ${filteredLogs.map((l) => `[${l.time}] [${l.level}] ${l.msg}`).join('\n')}
                 onClick={() => setSelectedExpId(exp.id)}
                 className={`p-5 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white border-cyan-600 shadow-sm ring-1 ring-cyan-500/20'
-                    : 'bg-white/80 border-slate-200 hover:border-slate-300'
+                    ? 'bg-white dark:bg-slate-900 border-blue-600 dark:border-blue-500 shadow-sm ring-1 ring-blue-500/20'
+                    : 'bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-50 text-cyan-800 border border-cyan-200">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                       {exp.version}
                     </span>
-                    <span className="font-mono text-[10px] text-emerald-700 font-semibold">
+                    <span className="font-mono text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
                       {exp.status}
                     </span>
                   </div>
 
-                  <h3 className="font-bold text-sm text-slate-900 mb-1">
+                  <h3 className="font-bold text-sm text-slate-900 dark:text-white mb-1">
                     {exp.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
                     {exp.tagline}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-slate-100 mt-4 flex items-center justify-between text-[10px] font-mono">
-                  <span className="text-slate-500">{exp.category}</span>
-                  <span className={isSelected ? 'text-cyan-700 font-bold' : 'text-slate-500'}>
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-[10px] font-mono">
+                  <span className="text-slate-500 dark:text-slate-400">{exp.category}</span>
+                  <span className={isSelected ? 'text-blue-700 dark:text-blue-400 font-bold' : 'text-slate-500 dark:text-slate-400'}>
                     {isSelected ? 'ACTIVE TOOL' : 'RUN TOOL →'}
                   </span>
                 </div>

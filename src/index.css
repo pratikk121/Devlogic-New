@@ -1,20 +1,48 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-cyan-50: var(--color-blue-50);
+  --color-cyan-100: var(--color-blue-100);
+  --color-cyan-200: var(--color-blue-200);
+  --color-cyan-300: var(--color-blue-300);
+  --color-cyan-400: var(--color-blue-400);
+  --color-cyan-500: var(--color-blue-600);
+  --color-cyan-600: var(--color-blue-700);
+  --color-cyan-700: var(--color-blue-800);
+  --color-cyan-800: var(--color-blue-900);
+  --color-cyan-900: var(--color-blue-950);
+  --color-cyan-950: #0f172a;
+}
+
 @layer base {
   :root {
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
     --border-subtle: #e2e8f0;
-    --border-accent: rgba(8, 145, 178, 0.25);
+    --border-accent: rgba(37, 99, 235, 0.25);
+  }
+
+  .dark {
+    --bg-main: #090d16;
+    --bg-card: #0e1526;
+    --border-subtle: #1e293b;
+    --border-accent: rgba(59, 130, 246, 0.25);
   }
 
   body {
-    background-color: #f8fafc;
+    background-color: var(--bg-main);
     color: #0f172a;
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    color: #f8fafc;
   }
 
   code, pre, .font-mono {
@@ -32,30 +60,56 @@
   background: #f1f5f9;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
 .bg-radial-subtle {
   background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
 }
 
-/* Light Surface Cards */
+.dark .bg-radial-subtle {
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, rgba(9, 13, 22, 0) 70%);
+}
+
+/* Adaptive Light/Dark Surface Cards */
 .light-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease;
 }
 
 .light-card:hover {
+  transform: translateY(-4px) scale(1.005);
   border-color: #cbd5e1;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.08), 0 10px 16px -10px rgba(0, 0, 0, 0.04);
+}
+
+.dark .light-card {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+}
+
+.dark .light-card:hover {
+  border-color: #334155;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 /* Embedded Dark Navy Product Surface */
@@ -96,5 +150,3 @@
   stroke-dasharray: 6 6;
   animation: dataFlow 1.5s linear infinite;
 }
-
-

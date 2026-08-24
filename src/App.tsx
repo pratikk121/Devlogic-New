@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageId, ProjectItem } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -17,6 +17,25 @@ import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 
 export default function App() {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return 'light';
+  });
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [isPortalOpen, setIsPortalOpen] = useState<boolean>(false);
   const [isEstimatorOpen, setIsEstimatorOpen] = useState<boolean>(false);
@@ -42,7 +61,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-cyan-500 selection:text-cyan-950">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-300">
       
       {/* Navigation Bar */}
       <Navbar
@@ -51,6 +70,8 @@ export default function App() {
         onOpenClientPortal={() => setIsPortalOpen(true)}
         onOpenProjectInquiry={() => handleOpenProjectInquiry()}
         onOpenEstimator={() => setIsEstimatorOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main Content Router View */}

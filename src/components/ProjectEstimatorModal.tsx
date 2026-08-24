@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calculator, 
   X, 
@@ -60,6 +60,50 @@ export const ProjectEstimatorModal: React.FC<ProjectEstimatorModalProps> = ({
   onProceedToInquiry
 }) => {
   if (!isOpen) return null;
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const first = focusable[0] as HTMLElement;
+        const last = focusable[focusable.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    if (modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        (focusable[0] as HTMLElement).focus();
+      }
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const [selectedIds, setSelectedIds] = useState<string[]>(['web_app', 'feat_auth', 'feat_billing']);
   const [copied, setCopied] = useState(false);
@@ -142,7 +186,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-5xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <div ref={modalRef} className="bg-slate-900 border border-slate-800 rounded-2xl max-w-5xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-slate-800">
           <div className="flex items-center gap-3">
@@ -217,7 +261,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                       role="checkbox"
                       aria-checked={isChecked}
                       onClick={() => toggleOption(opt.id)}
-                      className={`p-3 rounded-xl text-left border transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                      className={`p-3 rounded-xl text-left border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
                         isChecked
                           ? 'bg-slate-800 border-cyan-500/80 text-white'
                           : 'bg-slate-950 border-slate-800/80 text-slate-400 hover:border-slate-700'

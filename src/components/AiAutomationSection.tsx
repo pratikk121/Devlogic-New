@@ -177,8 +177,14 @@ export const AiAutomationSection: React.FC = () => {
                     <div>[SYSTEM] Ingestion node ready.</div>
                     <div>[ROUTING] Active workflow set: <span className="text-cyan-400 font-bold">{currentWf.title}</span></div>
                     {simulationLogs.map((log, i) => (
-                      <div key={i} className="text-emerald-400">{log}</div>
+                      <div key={i} className="text-emerald-400 animate-in fade-in slide-in-from-bottom-1 duration-300">{log}</div>
                     ))}
+                    {isProcessing && (
+                      <div className="text-cyan-400 font-semibold flex items-center gap-1.5 animate-pulse">
+                        <span>[AGENT] Processing active telemetry pipeline...</span>
+                        <span className="w-1.5 h-3.5 bg-cyan-400 inline-block animate-ping shrink-0"></span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
