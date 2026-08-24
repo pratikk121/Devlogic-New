@@ -233,56 +233,60 @@ https://devlogicsystems.com
             {/* Step 2: Contact Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-800/80">
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-name" className="font-mono text-xs text-slate-300 block mb-2">
                   Your Name *
                 </label>
                 <input
+                  id="inquiry-name"
                   type="text"
                   required
-                  placeholder="e.g. Sarah Jenkins"
+                  placeholder="e.g. Rahul Sharma"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-email" className="font-mono text-xs text-slate-300 block mb-2">
                   Work Email *
                 </label>
                 <input
+                  id="inquiry-email"
                   type="email"
                   required
-                  placeholder="s.jenkins@company.com"
+                  placeholder="r.sharma@company.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-company" className="font-mono text-xs text-slate-300 block mb-2">
                   Company / Organization
                 </label>
                 <input
+                  id="inquiry-company"
                   type="text"
-                  placeholder="e.g. Nexus Logistics LLC"
+                  placeholder="e.g. Nexus Logistics India"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-phone" className="font-mono text-xs text-slate-300 block mb-2">
                   Phone Number (Optional)
                 </label>
                 <input
+                  id="inquiry-phone"
                   type="tel"
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 />
               </div>
             </div>
@@ -290,13 +294,14 @@ https://devlogicsystems.com
             {/* Step 3: Budget & Timeline Selectors */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-800/80">
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-budget" className="font-mono text-xs text-slate-300 block mb-2">
                   Estimated Budget Range (INR)
                 </label>
                 <select
+                  id="inquiry-budget"
                   value={formData.budgetRange}
                   onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 >
                   <option>₹15,000 - ₹35,000 (Starter / MVP / Website)</option>
                   <option>₹35,000 - ₹80,000 (Web App / Automation / Workflow)</option>
@@ -306,13 +311,14 @@ https://devlogicsystems.com
               </div>
 
               <div>
-                <label className="font-mono text-xs text-slate-300 block mb-2">
+                <label htmlFor="inquiry-timeline" className="font-mono text-xs text-slate-300 block mb-2">
                   Desired Deployment Timeline
                 </label>
                 <select
+                  id="inquiry-timeline"
                   value={formData.timeline}
                   onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
                 >
                   <option>&lt; 1 Month (Rapid Deployment)</option>
                   <option>1 - 2 Months (Standard Build)</option>
@@ -324,16 +330,17 @@ https://devlogicsystems.com
 
             {/* Step 4: System Description */}
             <div className="pt-4 border-t border-slate-800/80">
-              <label className="font-mono text-xs text-slate-300 block mb-2">
+              <label htmlFor="inquiry-description" className="font-mono text-xs text-slate-300 block mb-2">
                 Project Overview & Core Bottlenecks
               </label>
               <textarea
+                id="inquiry-description"
                 rows={4}
                 required
                 placeholder="Describe what you want to build, current manual workflows, or desired capabilities..."
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/50"
               ></textarea>
             </div>
 
@@ -347,17 +354,17 @@ https://devlogicsystems.com
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold text-cyan-950 bg-gradient-to-r from-cyan-400 via-cyan-300 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-xl flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center justify-center gap-2 apple-press transition-all"
               >
                 {isSubmitting ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin text-cyan-950" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-white" />
                     <span>LOGGING INQUIRY...</span>
                   </>
                 ) : (
                   <>
                     <span>Submit System Inquiry</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-blue-200" />
                   </>
                 )}
               </button>

@@ -195,21 +195,27 @@ ${stack.map((s) => `- ${s}`).join('\n')}
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div ref={modalRef} className="bg-slate-900 border border-slate-800 rounded-2xl max-w-5xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-xl overflow-y-auto">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="estimator-modal-title"
+        className="bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-3xl max-w-5xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto apple-modal-content"
+      >
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-blue-950/70 text-blue-400 border border-blue-800/60">
+            <div className="p-3 rounded-2xl bg-blue-950/70 text-blue-400 border border-blue-800/60 shadow-xs">
               <Calculator className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-blue-400 font-bold uppercase">
+                <span className="font-mono text-xs text-blue-400 font-bold uppercase tracking-wider">
                   INTERACTIVE SYSTEM ARCHITECTURE & COST CALCULATOR
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
+              <h3 id="estimator-modal-title" className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Estimate Your Custom Software Scope
               </h3>
             </div>
@@ -219,7 +225,9 @@ ${stack.map((s) => `- ${s}`).join('\n')}
             {/* Currency Switcher */}
             <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-1">
               <button
+                type="button"
                 onClick={() => setCurrency('INR')}
+                aria-pressed={currency === 'INR'}
                 className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all ${
                   currency === 'INR' 
                     ? 'bg-blue-600 text-white shadow-xs' 
@@ -229,7 +237,9 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                 ₹ INR
               </button>
               <button
+                type="button"
                 onClick={() => setCurrency('USD')}
+                aria-pressed={currency === 'USD'}
                 className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all ${
                   currency === 'USD' 
                     ? 'bg-blue-600 text-white shadow-xs' 

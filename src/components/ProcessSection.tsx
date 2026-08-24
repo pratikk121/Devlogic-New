@@ -31,31 +31,31 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
   };
 
   return (
-    <section id="process-section" className="py-20 md:py-28 bg-white dark:bg-slate-900/40 relative text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-300">
+    <section id="process-section" className="py-20 md:py-28 bg-white dark:bg-slate-900/40 relative text-slate-900 dark:text-white border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs mb-3 shadow-2xs">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs mb-3 shadow-2xs">
             <Terminal className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>HOW WE WORK // 6-STAGE ENGINEERING METHODOLOGY</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em]">
             Predictable Fixed-Scope Execution.
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg mt-3 leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg mt-3 leading-relaxed tracking-[-0.01em]">
             We follow a structured 6-stage engineering process designed to eliminate ambiguity, ensure technical accuracy, and deliver production-ready software on schedule.
           </p>
         </div>
 
-        {/* 6-Stage Timeline List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 6-Stage Timeline Ordered List */}
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none p-0 m-0">
           {PROCESS_STEPS_DATA.map((step) => {
             const IconComp = getStepIcon(step.iconName);
             return (
-              <div
+              <li
                 key={step.number}
-                className="light-card rounded-2xl p-6 flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs"
+                className="light-card rounded-2xl p-6 flex flex-col justify-between group transition-all list-none"
               >
                 <div>
                   {/* Step Number & Header */}
@@ -63,12 +63,12 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
                     <span className="font-mono text-2xl font-extrabold text-slate-900 dark:text-white">
                       {step.number}
                     </span>
-                    <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-blue-950/60 text-blue-400 font-mono flex items-center justify-center border border-transparent dark:border-blue-800/50">
+                    <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-blue-950/70 text-blue-400 font-mono flex items-center justify-center border border-transparent dark:border-blue-800/50 shadow-xs">
                       <IconComp className="w-5 h-5" />
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 tracking-tight">
                     {step.title}
                   </h3>
                   <span className="font-mono text-[11px] font-semibold text-blue-700 dark:text-blue-400 block mb-3">
@@ -81,7 +81,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
 
                   {/* Deliverables List */}
                   <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs">
-                    <span className="font-mono text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-1">
+                    <span className="font-mono text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-1">
                       DELIVERABLES:
                     </span>
                     {step.deliverables.map((del, i) => (
@@ -99,19 +99,19 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
                     <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                     <span>TIMELINE:</span>
                   </span>
-                  <span className="font-bold text-slate-900 dark:text-white px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                  <span className="font-bold text-slate-900 dark:text-white px-2.5 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                     {step.duration}
                   </span>
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ol>
 
         {/* Process CTA Footer */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-slate-900 dark:bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-slate-800">
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-slate-950/95 backdrop-blur-xl text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-slate-800/90 shadow-2xl">
           <div>
-            <h3 className="text-xl font-bold text-white mb-1">
+            <h3 className="text-xl font-bold text-white mb-1 tracking-tight">
               Ready to start Stage 01: Discover?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300">
@@ -121,7 +121,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenProjectInq
 
           <button
             onClick={onOpenProjectInquiry}
-            className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all shrink-0 flex items-center gap-2"
+            className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all shrink-0 flex items-center gap-2 apple-press shadow-md"
           >
             <span>Book Scope Discovery</span>
             <ArrowRight className="w-4 h-4 text-blue-200" />

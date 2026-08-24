@@ -3,16 +3,10 @@ import { MOCK_CLIENT_PORTAL_PROJECT } from '../data/companyData';
 import { 
   Lock, 
   X, 
-  Activity, 
   CheckCircle2, 
   FileText, 
   Download, 
-  Clock, 
-  UserCheck, 
-  Terminal, 
-  Layers,
-  Send,
-  MessageSquare
+  Send
 } from 'lucide-react';
 
 interface ClientPortalModalProps {
@@ -82,7 +76,7 @@ export const ClientPortalModal: React.FC<ClientPortalModalProps> = ({ isOpen, on
   const [sprintTasks, setSprintTasks] = useState([
     { id: 1, text: 'Deploy Mobile Telemetry API Gateway', done: true },
     { id: 2, text: 'Configure Redis BullMQ queue for push alerts', done: true },
-    { id: 3, text: 'Integrate Stripe Webhook HMAC signature verification', done: false },
+    { id: 3, text: 'Integrate UPI / Razorpay Webhook HMAC signature verification', done: false },
     { id: 4, text: 'Perform End-to-End Load Test on Postgres Cluster', done: false }
   ]);
 
@@ -156,24 +150,30 @@ Status: APPROVED & DEPLOYED TO STAGING
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div ref={modalRef} className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-xl overflow-y-auto">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="portal-modal-title"
+        className="bg-slate-900/95 backdrop-blur-2xl border border-slate-800 rounded-3xl max-w-4xl w-full my-8 p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto apple-modal-content"
+      >
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-800">
+            <div className="p-3 rounded-2xl bg-blue-950/70 text-blue-400 border border-blue-800/60 shadow-xs">
               <Lock className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-cyan-400 font-bold uppercase">
+                <span className="font-mono text-xs text-blue-400 font-bold uppercase tracking-wider">
                   DEVLOGIC CLIENT PORTAL // LIVE INTERACTIVE SIMULATOR
                 </span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">
                   {MOCK_CLIENT_PORTAL_PROJECT.status}
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
+              <h3 id="portal-modal-title" className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 {MOCK_CLIENT_PORTAL_PROJECT.name}
               </h3>
             </div>
@@ -181,7 +181,7 @@ Status: APPROVED & DEPLOYED TO STAGING
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+            className="p-2.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-colors apple-press focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             aria-label="Close portal"
           >
             <X className="w-5 h-5" />
@@ -199,10 +199,10 @@ Status: APPROVED & DEPLOYED TO STAGING
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap apple-press ${
                 activeTab === tab.id
-                  ? 'bg-cyan-500 text-cyan-950 font-bold'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 text-white font-bold shadow-xs'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/70'
               }`}
             >
               {tab.label}
@@ -214,14 +214,14 @@ Status: APPROVED & DEPLOYED TO STAGING
         {activeTab === 'overview' && (
           <div className="py-6 space-y-6">
             {/* Progress Bar */}
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-5">
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 shadow-xs">
               <div className="flex items-center justify-between mb-2 font-mono text-xs">
                 <span className="text-slate-400">Total System Completion</span>
-                <span className="text-cyan-400 font-bold">{completionPercent}%</span>
+                <span className="text-blue-400 font-bold">{completionPercent}%</span>
               </div>
               <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
                 <div
-                  className="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full rounded-full transition-all duration-500"
+                  className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500"
                   style={{ width: `${completionPercent}%` }}
                 ></div>
               </div>
@@ -229,33 +229,33 @@ Status: APPROVED & DEPLOYED TO STAGING
 
             {/* Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
                 <span className="text-slate-500 block mb-1">Next Milestone:</span>
                 <span className="text-white font-bold">{MOCK_CLIENT_PORTAL_PROJECT.nextMilestone}</span>
               </div>
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
                 <span className="text-slate-500 block mb-1">Target Launch:</span>
                 <span className="text-emerald-400 font-bold">{MOCK_CLIENT_PORTAL_PROJECT.estimatedCompletion}</span>
               </div>
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
+              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800">
                 <span className="text-slate-500 block mb-1">Lead Architect:</span>
-                <span className="text-cyan-400 font-bold">{MOCK_CLIENT_PORTAL_PROJECT.leadEngineer}</span>
+                <span className="text-blue-400 font-bold">{MOCK_CLIENT_PORTAL_PROJECT.leadEngineer}</span>
               </div>
             </div>
 
             {/* Activity Stream */}
             <div>
-              <span className="font-mono text-xs text-slate-400 font-bold uppercase block mb-3">
+              <span className="font-mono text-xs text-slate-400 font-bold uppercase tracking-widest block mb-3">
                 REAL-TIME ENGINEERING ACTIVITY LOG
               </span>
               <div className="space-y-2">
                 {MOCK_CLIENT_PORTAL_PROJECT.recentActivity.map((act, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between p-3 rounded-lg bg-slate-950/60 border border-slate-800 text-xs"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 text-xs"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-slate-900 text-cyan-400 border border-slate-800">
+                      <span className="px-2 py-0.5 rounded-md text-[9px] font-mono bg-slate-900 text-blue-400 border border-slate-800">
                         {act.tag}
                       </span>
                       <span className="text-slate-200">{act.text}</span>
@@ -271,17 +271,17 @@ Status: APPROVED & DEPLOYED TO STAGING
         {/* Tab 2: Deliverables Vault */}
         {activeTab === 'deliverables' && (
           <div className="py-6 space-y-4">
-            <span className="font-mono text-xs text-slate-400 font-bold uppercase block">
+            <span className="font-mono text-xs text-slate-400 font-bold uppercase tracking-widest block">
               SECURE DOCUMENT & ARCHITECTURE DELIVERABLES
             </span>
             <div className="space-y-3">
               {MOCK_CLIENT_PORTAL_PROJECT.deliverables.map((del, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between"
+                  className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-cyan-400" />
+                    <FileText className="w-5 h-5 text-blue-400" />
                     <div>
                       <h4 className="text-xs font-bold text-white font-mono">{del.title}</h4>
                       <p className="text-[10px] text-slate-500 font-mono">
@@ -292,7 +292,7 @@ Status: APPROVED & DEPLOYED TO STAGING
 
                   <button
                     onClick={() => handleDownloadDeliverable(del.title)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-800 flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-800 text-blue-400 border border-slate-800 flex items-center gap-1.5 apple-press"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Download Spec</span>
@@ -306,11 +306,11 @@ Status: APPROVED & DEPLOYED TO STAGING
         {/* Tab 3: Active Sprint Checklist */}
         {activeTab === 'sprints' && (
           <div className="py-6 space-y-4">
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 mb-4">
-              <span className="font-mono text-xs text-cyan-400 font-bold block mb-1">
+            <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 mb-4">
+              <span className="font-mono text-xs text-blue-400 font-bold block mb-1">
                 CURRENT SPRINT: {MOCK_CLIENT_PORTAL_PROJECT.activeSprint}
               </span>
-              <p className="text-xs text-slate-300">
+              <p className="text-xs text-slate-300 font-normal">
                 Click tasks below to test completion status updates in real-time.
               </p>
             </div>
@@ -320,7 +320,7 @@ Status: APPROVED & DEPLOYED TO STAGING
                 <div
                   key={t.id}
                   onClick={() => toggleTask(t.id)}
-                  className={`p-3.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between text-xs font-mono ${
+                  className={`p-3.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between text-xs font-mono apple-press ${
                     t.done
                       ? 'bg-emerald-950/30 border-emerald-800/80 text-emerald-300'
                       : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
@@ -330,7 +330,7 @@ Status: APPROVED & DEPLOYED TO STAGING
                     <CheckCircle2 className={`w-4 h-4 ${t.done ? 'text-emerald-400' : 'text-slate-600'}`} />
                     <span className={t.done ? 'line-through opacity-80' : ''}>{t.text}</span>
                   </div>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-slate-500 font-semibold">
                     {t.done ? 'COMPLETED' : 'IN PROGRESS'}
                   </span>
                 </div>
@@ -342,13 +342,13 @@ Status: APPROVED & DEPLOYED TO STAGING
         {/* Tab 4: Direct Engineer Thread */}
         {activeTab === 'support' && (
           <div className="py-6 space-y-4">
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 max-h-[300px] overflow-y-auto space-y-3">
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 max-h-[300px] overflow-y-auto space-y-3">
               {messages.map((m) => (
                 <div
                   key={m.id}
-                  className={`p-3 rounded-xl max-w-lg text-xs ${
+                  className={`p-3.5 rounded-2xl max-w-lg text-xs ${
                     m.sender === 'user'
-                      ? 'ml-auto bg-cyan-950 border border-cyan-800 text-cyan-200'
+                      ? 'ml-auto bg-blue-950/60 border border-blue-800/80 text-blue-100'
                       : 'mr-auto bg-slate-900 border border-slate-800 text-slate-200'
                   }`}
                 >
@@ -367,11 +367,11 @@ Status: APPROVED & DEPLOYED TO STAGING
                 placeholder="Type your message to Devlogic Engineering Lead..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-blue-500"
               />
               <button
                 type="submit"
-                className="px-5 py-3 rounded-xl font-bold text-xs text-cyan-950 bg-cyan-400 hover:bg-cyan-300 flex items-center gap-1.5 shrink-0"
+                className="px-5 py-3 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 flex items-center gap-1.5 shrink-0 apple-press shadow-md"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Send</span>
@@ -384,7 +384,7 @@ Status: APPROVED & DEPLOYED TO STAGING
         <div className="flex justify-end pt-4 border-t border-slate-800">
           <button
             onClick={onClose}
-            className="px-6 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white"
+            className="px-6 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white apple-press transition-colors"
           >
             Close Portal Preview
           </button>

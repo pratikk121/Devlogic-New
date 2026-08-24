@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { PageId, ProjectItem } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -10,11 +10,19 @@ import { ProcessSection } from './components/ProcessSection';
 import { LabSection } from './components/LabSection';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
-import { CaseStudyModal } from './components/CaseStudyModal';
-import { ClientPortalModal } from './components/ClientPortalModal';
-import { ProjectEstimatorModal } from './components/ProjectEstimatorModal';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
+
+// Dynamic Code-Splitting for Heavy Modals (Loaded on-demand)
+const CaseStudyModal = React.lazy(() =>
+  import('./components/CaseStudyModal').then((m) => ({ default: m.CaseStudyModal }))
+);
+const ClientPortalModal = React.lazy(() =>
+  import('./components/ClientPortalModal').then((m) => ({ default: m.ClientPortalModal }))
+);
+const ProjectEstimatorModal = React.lazy(() =>
+  import('./components/ProjectEstimatorModal').then((m) => ({ default: m.ProjectEstimatorModal }))
+);
 
 export default function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -63,6 +71,14 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-300">
       
+      {/* Skip to Main Content Bypass Link for Keyboard Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] px-4 py-2 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold shadow-2xl focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
+
       {/* Navigation Bar */}
       <Navbar
         currentPage={currentPage}
@@ -75,7 +91,7 @@ export default function App() {
       />
 
       {/* Main Content Router View */}
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         {/* HOMEPAGE - 8 Core Streamlined Sections */}
         {currentPage === 'home' && (
           <>
@@ -119,6 +135,9 @@ export default function App() {
             <AboutSection
               onOpenProjectInquiry={() => handleOpenProjectInquiry()}
             />
+
+            {/* FREQUENTLY ASKED QUESTIONS */}
+            <FaqSection />
 
             {/* 8. FINAL CALL TO ACTION */}
             <ContactSection prefilledSubject={inquirySubject} />
@@ -185,25 +204,31 @@ export default function App() {
         )}
       </main>
 
-      {/* Case Study Detail Modal */}
-      <CaseStudyModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onOpenProjectInquiry={(subject) => handleOpenProjectInquiry(subject)}
-      />
+      {/* Dynamic Lazy-Loaded Modals with Suspense */}
+      <Suspense fallback={null}>
+        {selectedProject && (
+          <CaseStudyModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+            onOpenProjectInquiry={(subject) => handleOpenProjectInquiry(subject)}
+          />
+        )}
 
-      {/* Client Portal Preview Modal */}
-      <ClientPortalModal
-        isOpen={isPortalOpen}
-        onClose={() => setIsPortalOpen(false)}
-      />
+        {isPortalOpen && (
+          <ClientPortalModal
+            isOpen={isPortalOpen}
+            onClose={() => setIsPortalOpen(false)}
+          />
+        )}
 
-      {/* Interactive Project Estimator Modal */}
-      <ProjectEstimatorModal
-        isOpen={isEstimatorOpen}
-        onClose={() => setIsEstimatorOpen(false)}
-        onProceedToInquiry={(summary) => handleOpenProjectInquiry(summary)}
-      />
+        {isEstimatorOpen && (
+          <ProjectEstimatorModal
+            isOpen={isEstimatorOpen}
+            onClose={() => setIsEstimatorOpen(false)}
+            onProceedToInquiry={(summary) => handleOpenProjectInquiry(summary)}
+          />
+        )}
+      </Suspense>
 
       {/* Footer */}
       <Footer
