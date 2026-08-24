@@ -1,0 +1,6 @@
+{
+  "name": "Devlogic Systems",
+  "description": "Modern technology company building custom software, web applications, business systems, automation, and digital solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
