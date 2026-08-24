@@ -3,18 +3,13 @@ import {
   Calculator, 
   X, 
   CheckCircle2, 
-  Layers, 
-  Clock, 
-  DollarSign, 
-  Cpu, 
   FileText, 
   Download, 
   Copy, 
   Check, 
   ArrowRight,
-  Zap,
-  ShieldCheck,
-  Server
+  IndianRupee,
+  DollarSign
 } from 'lucide-react';
 
 interface ProjectEstimatorModalProps {
@@ -27,31 +22,32 @@ interface ScopeOption {
   id: string;
   name: string;
   hours: number;
-  cost: number;
+  costInr: number;
+  costUsd: number;
   category: 'platform' | 'feature' | 'integration' | 'sla';
   description: string;
 }
 
 const SCOPE_OPTIONS: ScopeOption[] = [
   // Platforms
-  { id: 'web_app', name: 'Custom Web Application', hours: 80, cost: 8000, category: 'platform', description: 'React/TypeScript SPA + Express Node.js Backend' },
-  { id: 'mobile_app', name: 'Cross-Platform Mobile App', hours: 100, cost: 10000, category: 'platform', description: 'React Native iOS & Android application' },
-  { id: 'business_erp', name: 'Internal Business ERP / Portal', hours: 120, cost: 12000, category: 'platform', description: 'Role-based admin portal, inventory, reporting' },
-  { id: 'website_corp', name: 'Corporate Marketing Website', hours: 40, cost: 4000, category: 'platform', description: 'High-conversion Next.js/Vite site with CMS' },
+  { id: 'web_app', name: 'Custom Web Application', hours: 60, costInr: 35000, costUsd: 1200, category: 'platform', description: 'React + TypeScript frontend with Node.js/PostgreSQL backend' },
+  { id: 'mobile_app', name: 'Cross-Platform Mobile App', hours: 80, costInr: 45000, costUsd: 1500, category: 'platform', description: 'React Native iOS & Android application with offline sync' },
+  { id: 'business_erp', name: 'Internal Business ERP / Portal', hours: 100, costInr: 65000, costUsd: 2200, category: 'platform', description: 'Role-based admin dashboard, inventory, billing & team tracking' },
+  { id: 'website_corp', name: 'Corporate Marketing Website', hours: 30, costInr: 18000, costUsd: 600, category: 'platform', description: 'High-conversion fast Vite/React site with modern animations' },
 
   // Features
-  { id: 'feat_auth', name: 'Role-Based Authentication (RBAC)', hours: 16, cost: 1600, category: 'feature', description: 'JWT / OAuth 2.0, MFA, granular permissions' },
-  { id: 'feat_billing', name: 'Payment & Subscription Billing', hours: 24, cost: 2400, category: 'feature', description: 'Stripe Connect, invoices, multi-currency' },
-  { id: 'feat_realtime', name: 'Real-Time WebSockets & Sync', hours: 20, cost: 2000, category: 'feature', description: 'Live notification engine, collaborative state' },
-  { id: 'feat_ai', name: 'AI / LLM Integration', hours: 30, cost: 3000, category: 'feature', description: 'Gemini/OpenAI document parsing, smart search' },
-  { id: 'feat_analytics', name: 'Custom Analytics & Reports', hours: 18, cost: 1800, category: 'feature', description: 'Interactive Recharts dashboards, PDF exports' },
+  { id: 'feat_auth', name: 'Role-Based Auth & Permissions (RBAC)', hours: 14, costInr: 8000, costUsd: 250, category: 'feature', description: 'OTP / Google Login / JWT, granular admin/staff roles' },
+  { id: 'feat_billing', name: 'Razorpay / UPI / Stripe Payments', hours: 18, costInr: 10000, costUsd: 350, category: 'feature', description: 'Instant UPI QR, Razorpay checkout, automated GST invoices' },
+  { id: 'feat_realtime', name: 'Real-Time Sync & WebSockets', hours: 16, costInr: 9000, costUsd: 300, category: 'feature', description: 'Live order tracking, instant notifications, team chat' },
+  { id: 'feat_ai', name: 'AI & Automation Pipelines', hours: 24, costInr: 14000, costUsd: 450, category: 'feature', description: 'Document parsing, automated WhatsApp triggers, smart search' },
+  { id: 'feat_analytics', name: 'Custom Business Analytics', hours: 12, costInr: 7000, costUsd: 250, category: 'feature', description: 'Visual metrics charts, daily sales reports, Excel/PDF export' },
 
   // Integrations
-  { id: 'int_crm', name: 'CRM & ERP Sync (HubSpot / SAP)', hours: 16, cost: 1600, category: 'integration', description: 'Two-way bi-directional webhook data pipe' },
-  { id: 'int_storage', name: 'S3 / Cloud File Vault', hours: 12, cost: 1200, category: 'integration', description: 'Encrypted document storage with signed URLs' },
+  { id: 'int_crm', name: 'WhatsApp API & Zoho/Tally Sync', hours: 14, costInr: 8000, costUsd: 280, category: 'integration', description: 'Automated WhatsApp alerts and accounting/CRM data pipe' },
+  { id: 'int_storage', name: 'Cloud File Vault & Documents', hours: 10, costInr: 5000, costUsd: 180, category: 'integration', description: 'Secure bill/document upload with cloud storage' },
 
   // SLA
-  { id: 'sla_pro', name: 'Devlogic Enterprise SLA & Maintenance', hours: 20, cost: 2000, category: 'sla', description: '24/7 uptime monitoring & monthly updates' }
+  { id: 'sla_pro', name: 'Monthly Maintenance & Support SLA', hours: 15, costInr: 7500, costUsd: 250, category: 'sla', description: 'Server monitoring, bug fixes, weekly database backups' }
 ];
 
 export const ProjectEstimatorModal: React.FC<ProjectEstimatorModalProps> = ({
@@ -62,6 +58,9 @@ export const ProjectEstimatorModal: React.FC<ProjectEstimatorModalProps> = ({
   if (!isOpen) return null;
 
   const modalRef = useRef<HTMLDivElement>(null);
+  const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
+  const [selectedIds, setSelectedIds] = useState<string[]>(['web_app', 'feat_auth']);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -105,31 +104,42 @@ export const ProjectEstimatorModal: React.FC<ProjectEstimatorModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const [selectedIds, setSelectedIds] = useState<string[]>(['web_app', 'feat_auth', 'feat_billing']);
-  const [copied, setCopied] = useState(false);
-
   const toggleOption = (id: string) => {
-    if (selectedIds.includes(id)) {
-      if (selectedIds.length === 1) return; // keep at least 1
-      setSelectedIds(selectedIds.filter((i) => i !== id));
-    } else {
-      setSelectedIds([...selectedIds, id]);
-    }
+    setSelectedIds((prev) => {
+      const isPlatform = SCOPE_OPTIONS.find((o) => o.id === id)?.category === 'platform';
+      if (isPlatform) {
+        // Keep single platform or replace
+        const nonPlatforms = prev.filter((item) => SCOPE_OPTIONS.find((o) => o.id === item)?.category !== 'platform');
+        return prev.includes(id) ? nonPlatforms : [...nonPlatforms, id];
+      }
+      return prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id];
+    });
   };
 
   const selectedOptions = SCOPE_OPTIONS.filter((opt) => selectedIds.includes(opt.id));
   const totalHours = selectedOptions.reduce((acc, curr) => acc + curr.hours, 0);
-  const totalCostMin = selectedOptions.reduce((acc, curr) => acc + curr.cost, 0);
+  
+  const totalCostMin = selectedOptions.reduce(
+    (acc, curr) => acc + (currency === 'INR' ? curr.costInr : curr.costUsd), 
+    0
+  );
   const totalCostMax = Math.round(totalCostMin * 1.25);
-  const estimatedWeeksMin = Math.max(2, Math.ceil(totalHours / 35));
-  const estimatedWeeksMax = estimatedWeeksMin + 2;
+  
+  const estimatedWeeksMin = Math.max(2, Math.ceil(totalHours / 30));
+  const estimatedWeeksMax = estimatedWeeksMin + 1;
+
+  const currencySymbol = currency === 'INR' ? '₹' : '$';
+
+  const formatAmount = (num: number) => {
+    return currency === 'INR' ? num.toLocaleString('en-IN') : num.toLocaleString('en-US');
+  };
 
   const generateTechStack = () => {
-    const stack = ['React 18', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL'];
-    if (selectedIds.includes('feat_realtime')) stack.push('WebSockets / Socket.io', 'Redis');
-    if (selectedIds.includes('feat_billing')) stack.push('Stripe SDK');
-    if (selectedIds.includes('feat_ai')) stack.push('Google Gemini AI SDK', 'Vector Embeddings');
-    if (selectedIds.includes('mobile_app')) stack.push('React Native');
+    const stack = ['React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express', 'PostgreSQL'];
+    if (selectedIds.includes('feat_realtime')) stack.push('WebSockets', 'Redis');
+    if (selectedIds.includes('feat_billing')) stack.push(currency === 'INR' ? 'Razorpay / UPI SDK' : 'Stripe SDK');
+    if (selectedIds.includes('feat_ai')) stack.push('Gemini AI API', 'Python Worker');
+    if (selectedIds.includes('mobile_app')) stack.push('React Native / Expo');
     return stack;
   };
 
@@ -137,14 +147,14 @@ export const ProjectEstimatorModal: React.FC<ProjectEstimatorModalProps> = ({
     const stack = generateTechStack();
     return `# DEVLOGIC SYSTEMS - ARCHITECTURE & SCOPE ESTIMATE
 Date: ${new Date().toLocaleDateString()}
-Generated via Devlogic Interactive Architect Tool
+Generated via Devlogic Interactive Architect Tool (India Delivery)
 
 ## 1. SELECTED SYSTEM MODULES
 ${selectedOptions.map((opt) => `- **${opt.name}**: ${opt.description} (~${opt.hours} hrs)`).join('\n')}
 
 ## 2. ESTIMATED SYSTEM METRICS
 - **Estimated Development Effort**: ${totalHours} Engineering Hours
-- **Budget Range**: $${totalCostMin.toLocaleString()} - $${totalCostMax.toLocaleString()} USD
+- **Budget Range**: ${currencySymbol}${formatAmount(totalCostMin)} - ${currencySymbol}${formatAmount(totalCostMax)} ${currency}
 - **Estimated Delivery Timeline**: ${estimatedWeeksMin} - ${estimatedWeeksMax} Weeks
 
 ## 3. RECOMMENDED TECHNICAL STACK
@@ -153,8 +163,8 @@ ${stack.map((s) => `- ${s}`).join('\n')}
 ## 4. INCLUDED DEVLOGIC GUARANTEES
 - 100% Strict TypeScript Type Safety
 - Zero Vendor Lock-in (Full Source Code & IP Ownership)
-- Live Staging Environment & Weekly Sprint Demos
-- 60-Day Post-Launch Warranty
+- Milestone-based Transparent Payments
+- 60-Day Post-Launch Technical Warranty
 `;
   };
 
@@ -179,7 +189,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
 
   const handleApplyToInquiry = () => {
     if (selectedOptions.length === 0) return;
-    const summary = `Estimate Summary: $${totalCostMin.toLocaleString()} - $${totalCostMax.toLocaleString()} (${totalHours} hrs). Modules: ${selectedOptions.map((o) => o.name).join(', ')}`;
+    const summary = `Estimate Summary: ${currencySymbol}${formatAmount(totalCostMin)} - ${currencySymbol}${formatAmount(totalCostMax)} ${currency} (${totalHours} hrs). Modules: ${selectedOptions.map((o) => o.name).join(', ')}`;
     onProceedToInquiry(summary);
     onClose();
   };
@@ -190,12 +200,12 @@ ${stack.map((s) => `- ${s}`).join('\n')}
         {/* Header */}
         <div className="flex items-center justify-between pb-6 border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-800">
+            <div className="p-3 rounded-xl bg-blue-950/70 text-blue-400 border border-blue-800/60">
               <Calculator className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-cyan-400 font-bold uppercase">
+                <span className="font-mono text-xs text-blue-400 font-bold uppercase">
                   INTERACTIVE SYSTEM ARCHITECTURE & COST CALCULATOR
                 </span>
               </div>
@@ -205,24 +215,52 @@ ${stack.map((s) => `- ${s}`).join('\n')}
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Currency Switcher */}
+            <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-1">
+              <button
+                onClick={() => setCurrency('INR')}
+                className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all ${
+                  currency === 'INR' 
+                    ? 'bg-blue-600 text-white shadow-xs' 
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                ₹ INR
+              </button>
+              <button
+                onClick={() => setCurrency('USD')}
+                className={`px-2.5 py-1 rounded text-xs font-mono font-bold transition-all ${
+                  currency === 'USD' 
+                    ? 'bg-blue-600 text-white shadow-xs' 
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                $ USD
+              </button>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              aria-label="Close Estimator"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 py-6">
           {/* Options Selection Column */}
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <label className="font-mono text-xs text-cyan-400 font-bold uppercase block mb-3">
+              <label className="font-mono text-xs text-blue-400 font-bold uppercase block mb-3">
                 01. SELECT CORE PLATFORM TYPE
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {SCOPE_OPTIONS.filter((o) => o.category === 'platform').map((opt) => {
                   const isChecked = selectedIds.includes(opt.id);
+                  const optCost = currency === 'INR' ? opt.costInr : opt.costUsd;
                   return (
                     <button
                       key={opt.id}
@@ -230,14 +268,14 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                       onClick={() => toggleOption(opt.id)}
                       className={`p-3.5 rounded-xl text-left border transition-all flex flex-col justify-between ${
                         isChecked
-                          ? 'bg-cyan-950/40 border-cyan-500/80 text-white ring-1 ring-cyan-500/40'
+                          ? 'bg-blue-950/50 border-blue-500/80 text-white ring-1 ring-blue-500/40'
                           : 'bg-slate-950 border-slate-800/80 text-slate-400 hover:border-slate-700'
                       }`}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-bold text-xs text-slate-200">{opt.name}</span>
-                          <span className="font-mono text-[10px] text-cyan-400">${opt.cost.toLocaleString()}</span>
+                          <span className="font-mono text-[11px] text-blue-400 font-semibold">{currencySymbol}{formatAmount(optCost)}</span>
                         </div>
                         <p className="text-[11px] text-slate-400">{opt.description}</p>
                       </div>
@@ -248,12 +286,13 @@ ${stack.map((s) => `- ${s}`).join('\n')}
             </div>
 
             <div>
-              <label className="font-mono text-xs text-cyan-400 font-bold uppercase block mb-3">
+              <label className="font-mono text-xs text-blue-400 font-bold uppercase block mb-3">
                 02. SELECT REQUIRED SYSTEM MODULES & FEATURES
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {SCOPE_OPTIONS.filter((o) => o.category === 'feature' || o.category === 'integration' || o.category === 'sla').map((opt) => {
                   const isChecked = selectedIds.includes(opt.id);
+                  const optCost = currency === 'INR' ? opt.costInr : opt.costUsd;
                   return (
                     <button
                       key={opt.id}
@@ -261,20 +300,20 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                       role="checkbox"
                       aria-checked={isChecked}
                       onClick={() => toggleOption(opt.id)}
-                      className={`p-3 rounded-xl text-left border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                      className={`p-3 rounded-xl text-left border transition-all duration-200 hover:-translate-y-0.5 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                         isChecked
-                          ? 'bg-slate-800 border-cyan-500/80 text-white'
+                          ? 'bg-slate-800 border-blue-500/80 text-white'
                           : 'bg-slate-950 border-slate-800/80 text-slate-400 hover:border-slate-700'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-semibold text-xs text-slate-200 flex items-center gap-2">
-                          <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[9px] font-bold ${isChecked ? 'bg-cyan-400 text-cyan-950' : 'bg-slate-800 text-slate-500'}`}>
+                          <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[9px] font-bold ${isChecked ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-500'}`}>
                             {isChecked ? '✓' : '+'}
                           </span>
                           {opt.name}
                         </span>
-                        <span className="font-mono text-[10px] text-cyan-400">+${opt.cost.toLocaleString()}</span>
+                        <span className="font-mono text-[10px] text-blue-400 font-medium">+{currencySymbol}{formatAmount(optCost)}</span>
                       </div>
                       <p className="text-[10px] text-slate-400 pl-5.5">{opt.description}</p>
                     </button>
@@ -288,7 +327,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
           <div className="lg:col-span-5 bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-                <span className="font-mono text-xs text-cyan-400 font-bold uppercase">
+                <span className="font-mono text-xs text-blue-400 font-bold uppercase">
                   CALCULATED ARCHITECTURE SPEC
                 </span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">
@@ -300,13 +339,13 @@ ${stack.map((s) => `- ${s}`).join('\n')}
               <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 mb-6 text-center">
                 <span className="text-xs text-slate-400 font-mono block mb-1">ESTIMATED INVESTMENT</span>
                 <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  ${totalCostMin.toLocaleString()} – ${totalCostMax.toLocaleString()}
-                  <span className="text-xs font-normal text-slate-400 ml-1">USD</span>
+                  {currencySymbol}{formatAmount(totalCostMin)} – {currencySymbol}{formatAmount(totalCostMax)}
+                  <span className="text-xs font-normal text-slate-400 ml-1.5">{currency}</span>
                 </div>
                 <div className="flex items-center justify-center gap-4 mt-3 pt-3 border-t border-slate-800 font-mono text-xs">
                   <div className="text-slate-300">
                     <span className="text-slate-500">Effort: </span>
-                    <span className="text-cyan-400 font-bold">{totalHours} Hours</span>
+                    <span className="text-blue-400 font-bold">{totalHours} Hours</span>
                   </div>
                   <div className="text-slate-300">
                     <span className="text-slate-500">Time: </span>
@@ -320,7 +359,7 @@ ${stack.map((s) => `- ${s}`).join('\n')}
                 <span className="font-mono text-[11px] text-slate-400 block mb-2">RECOMMENDED TECH STACK:</span>
                 <div className="flex flex-wrap gap-1.5">
                   {generateTechStack().map((st, i) => (
-                    <span key={i} className="px-2 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] text-cyan-300">
+                    <span key={i} className="px-2 py-1 rounded bg-slate-900 border border-slate-800 font-mono text-[10px] text-blue-300">
                       {st}
                     </span>
                   ))}
@@ -348,24 +387,24 @@ ${stack.map((s) => `- ${s}`).join('\n')}
             <div className="pt-6 border-t border-slate-800 space-y-3 mt-6">
               <button
                 onClick={handleApplyToInquiry}
-                className="w-full py-3.5 rounded-xl font-bold text-xs text-cyan-950 bg-gradient-to-r from-cyan-400 to-indigo-300 hover:from-cyan-300 hover:to-indigo-200 shadow-lg flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 shadow-lg flex items-center justify-center gap-2 transition-colors"
               >
                 <span>Proceed To Project Inquiry</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-blue-200" />
               </button>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleDownloadSpec}
-                  className="flex-1 py-2.5 rounded-xl font-mono text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl font-mono text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center justify-center gap-2 transition-colors"
                 >
-                  <Download className="w-3.5 h-3.5 text-cyan-400" />
+                  <Download className="w-3.5 h-3.5 text-blue-400" />
                   <span>Download Spec (.md)</span>
                 </button>
 
                 <button
                   onClick={handleCopySpec}
-                  className="px-4 py-2.5 rounded-xl font-mono text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center justify-center gap-2"
+                  className="px-4 py-2.5 rounded-xl font-mono text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 flex items-center justify-center gap-2 transition-colors"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>

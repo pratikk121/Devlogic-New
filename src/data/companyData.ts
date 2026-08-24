@@ -13,7 +13,7 @@ export const COMPANY_INFO = {
   name: "Devlogic Systems",
   tagline: "We build digital systems that move businesses forward.",
   shortDescription: "Devlogic Systems is a software engineering firm. We design, build, and maintain custom web applications, mobile apps, business software, and automation pipelines.",
-  location: "Austin, Texas · Remote Engineering Team",
+  location: "India · Remote Engineering Team",
   founded: "2021",
   systemStatus: "ALL SYSTEMS OPERATIONAL (99.99%)",
   contactEmail: "engineering@devlogicsystems.com",

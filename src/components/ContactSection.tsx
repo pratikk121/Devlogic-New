@@ -25,7 +25,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ prefilledSubject
     company: '',
     phone: '',
     projectTypes: prefilledSubject ? ['Custom Software'] : ['Web Application'],
-    budgetRange: '$15k - $30k',
+    budgetRange: '₹35,000 - ₹80,000',
     timeline: '1 - 2 Months',
     description: prefilledSubject ? `I would like to inquire about: ${prefilledSubject}` : '',
     existingSystemUrl: '',
@@ -279,7 +279,7 @@ https://devlogicsystems.com
                 </label>
                 <input
                   type="tel"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
@@ -291,17 +291,17 @@ https://devlogicsystems.com
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-800/80">
               <div>
                 <label className="font-mono text-xs text-slate-300 block mb-2">
-                  Estimated Budget Range
+                  Estimated Budget Range (INR)
                 </label>
                 <select
                   value={formData.budgetRange}
                   onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-500"
                 >
-                  <option>$5k - $15k (Small Module / Site)</option>
-                  <option>$15k - $30k (Web App / Automation)</option>
-                  <option>$30k - $60k (Custom ERP / Full System)</option>
-                  <option>$60k+ (Enterprise Ecosystem)</option>
+                  <option>₹15,000 - ₹35,000 (Starter / MVP / Website)</option>
+                  <option>₹35,000 - ₹80,000 (Web App / Automation / Workflow)</option>
+                  <option>₹80,000 - ₹2,00,000 (Custom ERP / Mobile Application)</option>
+                  <option>₹2,00,000+ (Enterprise System / Scaled Architecture)</option>
                 </select>
               </div>
 

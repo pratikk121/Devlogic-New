@@ -51,7 +51,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenProjectInquiry
             Software Engineered with Technical Integrity.
           </h2>
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg mt-3 leading-relaxed">
-            Devlogic Systems is a digital engineering firm based in Austin, Texas with a distributed team of experienced software developers, system architects, and UI engineers. We build software that works reliably for the long term.
+            Devlogic Systems is a digital engineering firm based in India with a distributed team of experienced software developers, system architects, and UI engineers. We build software that works reliably for the long term.
           </p>
         </div>
 
