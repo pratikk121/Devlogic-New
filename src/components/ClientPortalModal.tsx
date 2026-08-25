@@ -364,6 +364,7 @@ Status: APPROVED & DEPLOYED TO STAGING
             <form onSubmit={handleSendMessage} className="flex gap-2">
               <input
                 type="text"
+                aria-label="Message to Devlogic Engineering Lead"
                 placeholder="Type your message to Devlogic Engineering Lead..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}

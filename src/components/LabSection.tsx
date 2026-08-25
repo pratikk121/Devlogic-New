@@ -552,6 +552,7 @@ ${filteredLogs.map((l) => `[${l.time}] [${l.level}] ${l.msg}`).join('\n')}
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <input
                   type="text"
+                  aria-label="Filter logs by keyword"
                   placeholder="Filter logs by keyword (e.g. Postgres, Stripe, JWT)..."
                   value={logSearch}
                   onChange={(e) => setLogSearch(e.target.value)}

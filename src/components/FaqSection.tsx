@@ -33,6 +33,7 @@ export const FaqSection: React.FC = () => {
           <Search className="w-4 h-4 text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
+            aria-label="Search frequently asked questions"
             placeholder="Search questions (e.g., pricing, MVP, maintenance, IP ownership)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

@@ -16,7 +16,7 @@ export const COMPANY_INFO = {
   location: "India · Remote Engineering Team",
   founded: "2021",
   systemStatus: "ALL SYSTEMS OPERATIONAL (99.99%)",
-  contactEmail: "engineering@devlogicsystems.com",
+  contactEmail: "engineering@devlogicsystems.in",
   stats: [
     { value: "100%", label: "TypeScript Type Safety" },
     { value: "100%", label: "Source Code IP Ownership" },

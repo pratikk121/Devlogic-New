@@ -143,6 +143,7 @@ export const EnterpriseProductPreview: React.FC<EnterpriseProductPreviewProps> =
             <Search className="w-3 h-3 text-slate-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
+              aria-label="Filter fleet vehicles and drivers"
               placeholder="Filter fleet..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

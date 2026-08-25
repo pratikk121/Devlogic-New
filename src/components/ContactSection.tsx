@@ -96,7 +96,7 @@ ${formData.description}
 
 ---
 Devlogic Systems Inc. - We build digital systems that work.
-https://devlogicsystems.com
+https://devlogicsystems.in
 `;
     const blob = new Blob([md], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
