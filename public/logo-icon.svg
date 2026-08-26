@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <defs>
+    <linearGradient id="devlogic-grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="blue-accent" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Container -->
+  <rect width="120" height="120" rx="28" fill="url(#devlogic-grad)" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Terminal Prompt Chevron > -->
+  <path d="M38 36L64 60L38 84" stroke="url(#blue-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Terminal Cursor _ -->
+  <rect x="72" y="76" width="18" height="10" rx="3" fill="#38bdf8"/>
+</svg>

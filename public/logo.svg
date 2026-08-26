@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 90" width="380" height="90" fill="none">
+  <defs>
+    <linearGradient id="icon-grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <style>
+      .brand-title { font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 800; font-size: 28px; fill: #ffffff; letter-spacing: -0.5px; }
+      .badge-bg { fill: #1e293b; stroke: #334155; stroke-width: 1px; }
+      .badge-text { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; font-weight: 700; font-size: 10px; fill: #94a3b8; letter-spacing: 1px; }
+      .tagline-text { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 600; font-size: 10.5px; fill: #64748b; letter-spacing: 0.4px; }
+      
+      @media (prefers-color-scheme: light) {
+        .brand-title { fill: #0f172a; }
+        .badge-bg { fill: #f1f5f9; stroke: #cbd5e1; }
+        .badge-text { fill: #475569; }
+      }
+    </style>
+  </defs>
+
+  <!-- Optional Background Canvas for universal viewing -->
+  <rect width="100%" height="100%" rx="16" fill="#0f172a"/>
+
+  <!-- Terminal Icon Container (64x64) -->
+  <g transform="translate(14, 13)">
+    <rect width="64" height="64" rx="16" fill="url(#icon-grad)" stroke="#334155" stroke-width="1.5"/>
+    <path d="M20 19L36 32L20 45" stroke="url(#blue-grad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="39" y="41" width="9" height="5" rx="1.5" fill="#38bdf8"/>
+  </g>
+
+  <!-- Title Case Brand Name: Devlogic -->
+  <text x="92" y="48" class="brand-title" fill="#ffffff">Devlogic</text>
+
+  <!-- Systems Badge -->
+  <g transform="translate(216, 31)">
+    <rect width="64" height="21" rx="5" class="badge-bg" fill="#1e293b" stroke="#334155"/>
+    <text x="32" y="14.5" class="badge-text" text-anchor="middle" fill="#94a3b8">SYSTEMS</text>
+  </g>
+
+  <!-- Tagline below -->
+  <text x="93" y="69" class="tagline-text" fill="#64748b">CUSTOM SOFTWARE &amp; DIGITAL ENGINEERING</text>
+</svg>

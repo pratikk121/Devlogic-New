@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 90" width="380" height="90" fill="none">
+  <defs>
+    <linearGradient id="icon-grad-light" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="blue-grad-light" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Terminal Icon Container (64x64) -->
+  <g transform="translate(14, 13)">
+    <rect width="64" height="64" rx="16" fill="url(#icon-grad-light)" stroke="#cbd5e1" stroke-width="1.5"/>
+    <path d="M20 19L36 32L20 45" stroke="url(#blue-grad-light)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="39" y="41" width="9" height="5" rx="1.5" fill="#38bdf8"/>
+  </g>
+
+  <!-- Title Case Brand Name: Devlogic (Dark text for light backgrounds) -->
+  <text x="92" y="48" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5" fill="#0f172a">
+    Devlogic
+  </text>
+
+  <!-- Systems Badge -->
+  <g transform="translate(216, 31)">
+    <rect width="64" height="21" rx="5" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="32" y="14.5" font-family="'JetBrains Mono', monospace, sans-serif" font-size="10" font-weight="700" letter-spacing="1" fill="#475569" text-anchor="middle">
+      SYSTEMS
+    </text>
+  </g>
+
+  <!-- Tagline below -->
+  <text x="93" y="69" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="10.5" font-weight="600" letter-spacing="0.4" fill="#64748b">
+    CUSTOM SOFTWARE &amp; DIGITAL ENGINEERING
+  </text>
+</svg>
