@@ -3,11 +3,16 @@ import {
   Building2, 
   CheckCircle2, 
   ShieldCheck, 
-  ArrowRight,
-  Users,
-  Lock,
-  FileCode
+  ArrowRight, 
+  Users, 
+  Lock, 
+  FileCode,
+  Github,
+  Linkedin,
+  Mail,
+  UserCheck
 } from 'lucide-react';
+import { FOUNDER_INFO } from '../data/companyData';
 
 interface AboutSectionProps {
   onOpenProjectInquiry: () => void;
@@ -42,7 +47,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenProjectInquiry
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs mb-3 shadow-2xs">
             <Building2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>ABOUT DEVLOGIC SYSTEMS // ENGINEERING PHILOSOPHY</span>
@@ -53,6 +58,68 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenProjectInquiry
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg mt-3 leading-relaxed tracking-[-0.01em]">
             Devlogic Systems is a digital engineering firm based in India with a distributed team of experienced software developers, system architects, and UI engineers. We build software that works reliably for the long term.
           </p>
+        </div>
+
+        {/* Founder / Leadership Trust Card */}
+        <div className="light-card rounded-2xl p-6 sm:p-8 mb-12 border border-slate-200/80 dark:border-slate-800/90 shadow-xs">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 font-mono text-[11px] font-semibold border border-blue-200/60 dark:border-blue-900/60">
+                <UserCheck className="w-3.5 h-3.5" />
+                <span>LEADERSHIP &amp; ACCOUNTABILITY</span>
+              </div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  {FOUNDER_INFO.name}
+                </h3>
+                <p className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+                  {FOUNDER_INFO.title}
+                </p>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                {FOUNDER_INFO.shortDescription}
+              </p>
+            </div>
+
+            {/* Direct Verified Links */}
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-100 dark:border-slate-800/80">
+              <a
+                href={`mailto:${FOUNDER_INFO.email}`}
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-mono transition-colors border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label={`Send direct business email to ${FOUNDER_INFO.name}`}
+              >
+                <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                <span>{FOUNDER_INFO.email}</span>
+              </a>
+
+              <a
+                href={FOUNDER_INFO.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-mono transition-colors border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label={`${FOUNDER_INFO.name} LinkedIn Profile (opens in new tab)`}
+              >
+                <Linkedin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                <span>{FOUNDER_INFO.linkedin.label}</span>
+              </a>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {FOUNDER_INFO.github.map((gh, idx) => (
+                  <a
+                    key={idx}
+                    href={gh.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-mono transition-colors border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label={`${FOUNDER_INFO.name} GitHub Profile: ${gh.label} (opens in new tab)`}
+                  >
+                    <Github className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300 shrink-0" />
+                    <span>{gh.label.replace('github.com/', '')}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Core Standards Grid */}
@@ -111,3 +178,4 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenProjectInquiry
     </section>
   );
 };
+

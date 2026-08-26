@@ -25,6 +25,19 @@ export const COMPANY_INFO = {
   ]
 };
 
+export const FOUNDER_INFO = {
+  name: "Pratik Kadole",
+  title: "Founder/CEO",
+  shortDescription: "Designing and building software systems, digital products, and automation with a focus on practical engineering and rapid execution.",
+  email: "devlogicsystems@gmail.com",
+  github: [
+    { label: "github.com/pratikk121", url: "https://github.com/pratikk121" },
+    { label: "github.com/novaninja1512-sketch", url: "https://github.com/novaninja1512-sketch" }
+  ],
+  linkedin: { label: "linkedin.com/in/pratik-kadole", url: "https://www.linkedin.com/in/pratik-kadole-119391267/" }
+};
+
+
 export const SERVICES_DATA: ServiceItem[] = [
   {
     id: 'web-apps',
