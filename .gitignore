@@ -24,11 +24,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Test, Audit & Prompt Artifacts
+# Test & Audit Artifacts
 lighthouse-report*.json
 coverage/
 .nyc_output/
-*_prompts.md
+/*_prompts.md
 
 # Editor & OS Files
 .DS_Store
