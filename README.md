@@ -64,7 +64,6 @@ Devlogic-New/
 │
 ├── docs/                        # Durable Architectural Knowledge & Specifications
 ├── prompts/                     # Reusable AI & Design Directives
-├── reports/                     # Time-Stamped Historical Audits & Verification Logs
 ├── index.html                   # SEO metadata, OpenGraph tags, font preloading
 ├── vite.config.ts               # Vite 6 bundler config & path aliases
 └── tsconfig.json                # Strict TypeScript configuration
