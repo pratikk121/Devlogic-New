@@ -4,10 +4,10 @@ import { Cpu } from 'lucide-react';
 
 export const TrustStrip: React.FC = () => {
   const capabilities = [
-    'Web & Mobile Apps',
-    'Custom Business Software',
-    'Workflow & AI Automation',
-    'Cloud & API Infrastructure'
+    'Web & Mobile Applications',
+    'Custom Business Operating Portals',
+    'Multi-Tenant PostgreSQL & RLS',
+    'Offline PWAs & IoT Telemetry'
   ];
 
   return (
